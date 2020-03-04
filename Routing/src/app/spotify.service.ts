@@ -14,16 +14,19 @@ export class SpotifyService {
 
   query(URl: string, params?: Array<string>): Observable<any>{
     let queryURL = `${SpotifyService.BASE_URL}${URl}`;
+    let authorization;
     if(params){
       queryURL = `${queryURL}?${params.join("&")}`;
     }
+    
     const header = new HttpHeaders({
-      "Authorization": "Bearer BQApQ20vY37eC_0gdHaRVY0MauDIMQWm2l8obL0lHQ6Ut0vUCkeTBShwnveXqXc1ypAwmpkfzDUyR8SE9zyj0I86PCWOJ-XCrfRB1HFwuri07TuG2koAozE7XSsO8Mf6w80DdoWlHEsQH2D-ySWZf5giTjiYG8QIxIkF7yTq-VHeu6uT-MLc96l3dyO5vTm2T16P--TIvmh0qQU7UTxj9dql8CQydzOciPC75AzMxAJfxqN2ps_uSel671bsVZ9IXCpTbCnSVJspZq0Cs8ePQtL9sejl0g"
+      "Authorization": localStorage.getItem("Authorization")
     });
     const options = {
       headers: header
     }
     console.log("url:", queryURL);
+
     return this.http.request('GET', queryURL, options);
   }
 
